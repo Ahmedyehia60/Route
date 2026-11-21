@@ -3,6 +3,8 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import { authenticatedFetch } from "@/lib/api";
+import DashboardSidebar from "./components/DashboardSidebar";
+import styles from "./dashboard.module.css"
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   const router = useRouter();
@@ -30,8 +32,13 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
   }, [router]);
 
   if (isChecking || !isAuthenticated) {
-    return <p>Checking your login...</p>;
+    return <div className={styles.loading}>Checking your login...</div>;
   }
 
-  return <>{children}</>;
+  return (
+    <div className={styles.appShell}>
+      <DashboardSidebar />
+      <main className={styles.main}>{children}</main>
+    </div>
+  );
 }

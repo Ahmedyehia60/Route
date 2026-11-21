@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button, message } from "antd";
+import { message } from "antd";
+import DashboardContent from "./components/DashboardContent";
+import styles from "./dashboard.module.css";
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -37,17 +39,14 @@ export default function DashboardPage() {
   }
 
   return (
-    <main>
+    <>
       {contextHolder}
-      <h1>Dashboard</h1>
-
-      <Button
-        danger
-        loading={isLoggingOut}
-        onClick={handleLogout}
-      >
-        Log out
-      </Button>
-    </main>
+      <div className={styles.dashboardPage}>
+        <DashboardContent
+          onLogout={handleLogout}
+          isLoggingOut={isLoggingOut}
+        />
+      </div>
+    </>
   );
 }
